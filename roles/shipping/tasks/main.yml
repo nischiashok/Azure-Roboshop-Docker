@@ -1,0 +1,31 @@
+- name: Run Java
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: java
+
+- name: Install MySQL
+  ansible.builtin.dnf:
+    name: mysql
+    state: latest
+
+#- name: Load Schema
+#  ansible.builtin.shell: mysql -h mysql-jaiganesha.shop -uroot -pRoboShop@1 < /app/db/schema.sql
+#
+#- name: Load app-user
+#  ansible.builtin.shell: mysql -h mysql-jaiganesha.shop -uroot -pRoboShop@1 < /app/db/app-user.sql
+#
+#- name: Load master-data
+#  ansible.builtin.shell: mysql -h mysql-jaiganesha.shop -uroot -pRoboShop@1 < /app/db/master-data.sql
+
+
+- name: Load Schema
+  ansible.builtin.shell: mysql -h mysql-omshiva.shop -u{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:username token={{ token }} url=http://vault-int.omshiva.shop:8200') }} -p{{ lookup('community.hashi_vault.hashi_vault', 'secret=roboshop-{{ env }}/data/{{ app_name }}:password token={{ token }} url=http://vault-int.omshiva.shop:8200') }} < /app/db/{{ item }}.sql
+  loop:
+    - schema
+    - app-user
+    - master-data
+
+- name: Run systemd_setup
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: systemd_setup
