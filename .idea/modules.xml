@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Azure-Roboshop-Docker.iml" filepath="$PROJECT_DIR$/.idea/Azure-Roboshop-Docker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Azure-Roboshop-Docker-Ansible.iml" filepath="$PROJECT_DIR$/.idea/Azure-Roboshop-Docker-Ansible.iml" />
     </modules>
   </component>
 </project>
